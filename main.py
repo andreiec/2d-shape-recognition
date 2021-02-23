@@ -6,11 +6,15 @@ import cv2
 def main():
 	image = "images/image.png"
 
-	# Using opencv to apply grayscale and canny edge detection
+	# Using opencv to apply grayscale, gaussian blur and threshold
 	img = cv2.imread(image)
 	img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-	img_canny = cv2.Canny(cv2.bitwise_not(img_gray), 90, 127)
+	img_blur = cv2.blur(img_gray, (3, 3))
+	img_canny = cv2.Canny(img_blur, 40, 95)
 
+	cv2.imshow("gray", img_gray)
+	cv2.imshow("blur", img_blur)
+	cv2.imshow("canny", img_canny)
 	# Find contours
 	cnts = cv2.findContours(img_canny.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 	cnts = imutils.grab_contours(cnts)
