@@ -6,10 +6,9 @@ import cv2
 def main():
 	image = "images/image.png"
 
-	# Using opencv to apply grayscale, gaussian blur and threshold
+	# Using opencv to apply grayscale and canny edge detection
 	img = cv2.imread(image)
 	img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
 	img_canny = cv2.Canny(cv2.bitwise_not(img_gray), 90, 127)
 
 	# Find contours
@@ -18,7 +17,7 @@ def main():
 
 	for c in cnts:
 
-		# Draw rectangle
+		# Convex Hull
 		epsilon = 0.02 * cv2.arcLength(c, True)
 		approx = cv2.approxPolyDP(c, epsilon, True)
 
